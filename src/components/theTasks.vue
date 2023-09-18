@@ -4,10 +4,11 @@ import { ref } from "vue";
 const newTodo = ref("");
 const activeTodos = ref([]);
 const doneTodos = ref([]);
+const starredTodos = ref([]);
 
 function addTodo() {
   console.log(newTodo.value);
-  activeTodos.value.push({ content: newTodo.value, active: true, done: false });
+  activeTodos.value.push({ content: newTodo.value, active: true, done: false, starred: false });
 }
 
 function removeTodo(index) {
@@ -18,16 +19,31 @@ function removeDoneTodo(index) {
   doneTodos.value.splice(index, 1);
 }
 
+function starTodo(todo, index) {
+  todo.starred = true;
+  console.log("starred", todo);
+  activeTodos.value.splice(index, 1);
+  starredTodos.value.push(todo);
+}
+
+function unStarTodo(todo, index) {
+  todo.starred = false;
+  console.log(index);
+  starredTodos.value.splice(index, 1);
+  activeTodos.value.push(todo);
+
+}
+
 function toggleTodo(todo, index) {
   todo.active = !todo.active;
   if (!todo.active) {
-    console.log("done", todo);
     todo.done = true;
+    console.log("done", todo);
     activeTodos.value.splice(index, 1);
     doneTodos.value.push(todo);
   } else {
-    console.log("active", todo);
     todo.done = false;
+    console.log("active", todo);
     doneTodos.value.splice(index, 1);
     activeTodos.value.push(todo);
   }
@@ -37,17 +53,31 @@ function toggleTodo(todo, index) {
 <template>
   <div class="container">
     <form @submit.prevent="addTodo()">
-      <label class="form">New Todo</label>
       <input class="form" type="text" v-model="newTodo" placeholder="Enter text">
       <button class="form">Add Todo</button>
     </form>
+    <ul>
+      <li v-for="(todo, index) in starredTodos" :key="todo" class="todo_frame">
+        <div class="todo">
+          <input class="checkbox" type="checkbox" :checked="todo.done" @click="toggleTodo(todo, index)">
+          <h3 :class="{ starred: todo.starred }" @click="toggleTodo(todo, index)">{{ todo.content }}</h3>
+        </div>
+        <div>
+        <font-awesome-icon icon="fa-solid fa-star" @click="unStarTodo(todo, index)" class="icon" />
+          <font-awesome-icon icon="fa-solid fa-xmark" @click="removeTodo(index)" class="icon" />
+        </div>
+      </li>
+    </ul>
     <ul>
       <li v-for="(todo, index) in activeTodos" :key="todo" class="todo_frame">
         <div class="todo">
           <input class="checkbox" type="checkbox" :checked="todo.done" @click="toggleTodo(todo, index)">
           <h3 :class="{ active: todo.active }" @click="toggleTodo(todo, index)">{{ todo.content }}</h3>
         </div>
-        <button @click="removeTodo(index)" class="remove">X</button>
+        <div>
+          <font-awesome-icon icon="fa-regular fa-star" @click="starTodo(todo, index)" class="icon" />
+          <font-awesome-icon icon="fa-solid fa-xmark" @click="removeTodo(index)" class="icon" />
+        </div>
       </li>
     </ul>
     <ul>
@@ -56,7 +86,9 @@ function toggleTodo(todo, index) {
           <input class="checkbox" type="checkbox" :checked="todo.done" @click="toggleTodo(todo, index)">
           <h3 :class="{ done: todo.done }" @click="toggleTodo(todo, index)">{{ todo.content }}</h3>
         </div>
-        <button @click="removeDoneTodo(index)" class="remove">X</button>
+        <div>
+          <font-awesome-icon icon="fa-solid fa-xmark" @click="removeDoneTodo(index)" class="icon" />
+        </div>
       </li>
     </ul>
   </div>
