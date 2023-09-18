@@ -103,8 +103,12 @@ function toggleTodo(todo, index) {
 form {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+}
+
+ul {
+  padding: 0;
 }
 
 .form {
@@ -120,7 +124,6 @@ form {
   border-radius: 5px;
   margin-bottom: 10px;
   justify-content: space-between;
-  width: 100%;
 }
 
 .todo {
@@ -132,14 +135,51 @@ form {
 .checkbox {
   margin-right: 10px;
   cursor: pointer;
+  display: none;
 }
 
-.remove {
+.icon {
+  margin-left: 10px;
   cursor: pointer;
 }
 
 .done {
   text-decoration: line-through;
   color: #4c4c4c;
+}
+
+@media screen and (min-width: 500px) {
+  ul {
+    width: 400px;
+    padding: 0;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  ul {
+    width: 500px;
+    padding: 0;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  ul {
+    width: 700px;
+    padding: 0;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  ul {
+    width: 900px;
+    padding: 0;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  ul {
+    width: 1100px;
+    padding: 0;
+  }
 }
 </style>
