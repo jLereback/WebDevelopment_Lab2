@@ -1,18 +1,25 @@
 <script setup>
 import TheHeader from "@/components/theHeader.vue";
-import TheForm from "@/components/theForm.vue";
+import TheForm from "@/components/theTasks.vue";
 </script>
 
 <template>
-  <div class="header">
-    <theHeader />
-  </div>
-  <main>
+  <section>
+    <div class="header">
+      <theHeader />
+    </div>
     <theForm />
-  </main>
+  </section>
 </template>
 
 <style scoped>
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 main {
   display: flex;
   justify-content: center;
@@ -23,14 +30,5 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-@media (min-width: 1024px) {
-  .header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
 }
 </style>
