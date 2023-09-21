@@ -10,6 +10,7 @@ function addTodo() {
   if (newTodo.value === "") return;
   activeTodos.value.push({ content: newTodo.value, active: true, done: false, starred: false });
   updateLocalStorage();
+  newTodo.value = "";
 }
 
 function updateLocalStorage() {
@@ -58,7 +59,7 @@ function toggleTodo(todo, index) {
       activeTodos.value.splice(index, 1);
     }
     doneTodos.value.push(todo);
-    updateLocalStorage()
+    updateLocalStorage();
   } else {
     todo.done = false;
     doneTodos.value.splice(index, 1);
@@ -70,7 +71,7 @@ function toggleTodo(todo, index) {
 
 <template>
   <div class="container">
-    <form @submit="addTodo()">
+    <form @submit.prevent="addTodo()">
       <input class="form" type="text" v-model="newTodo" placeholder="Enter text">
       <button class="form">Add Todo</button>
     </form>
