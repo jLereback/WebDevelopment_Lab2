@@ -81,7 +81,7 @@ function toggleTodo(todo, index) {
           <h3 :class="{ starred: todo.starred }" @click="toggleTodo(todo, index)">{{ todo.content }}</h3>
         </div>
         <div>
-          <font-awesome-icon icon="fa-solid fa-star" @click="unStarTodo(todo, index)" class="icon" />
+          <font-awesome-icon icon="fa-solid fa-star" @click="unStarTodo(todo, index)" class="icon star" />
           <font-awesome-icon icon="fa-solid fa-xmark" @click="removeStarredTodo(index)" class="icon" />
         </div>
       </li>
@@ -93,7 +93,7 @@ function toggleTodo(todo, index) {
           <h3 :class="{ active: todo.active }" @click="toggleTodo(todo, index)">{{ todo.content }}</h3>
         </div>
         <div>
-          <font-awesome-icon icon="fa-regular fa-star" @click="starTodo(todo, index)" class="icon" />
+          <font-awesome-icon icon="fa-regular fa-star" @click="starTodo(todo, index)" class="icon star" />
           <font-awesome-icon icon="fa-solid fa-xmark" @click="removeTodo(index)" class="icon" />
         </div>
       </li>
@@ -159,6 +159,11 @@ ul {
 .icon {
   margin-left: 10px;
   cursor: pointer;
+}
+
+.star {
+  margin-left: 7px;
+  padding-right: 5px;
 }
 
 .done {
